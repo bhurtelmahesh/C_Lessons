@@ -2,52 +2,53 @@
 #include <math.h>
 #include <ctype.h>
 /* I am a comment */
-// int main() {
-//     printf("Hello World\n");
-//     printf("Answer %d\n", 42);
-//     printf("Name %s\n", "Sarah");
-//     printf("x equals to %.1f, which is less than %d.\n", 3.5, 100);
-// }
 
-// int main() {
-//     int usf, euf;
-//     printf("Enter US Floor:\n");
-//     scanf("%d", &usf);
-//                                  
-//     euf = usf - 1;
-//     printf("EU Floor is %d.\n", euf);
-// }
+void print() {
+    printf("Hello World\n");
+    printf("Answer %d\n", 42);
+    printf("Name %s\n", "Sarah");
+    printf("x equals to %.1f, which is less than %d.\n", 3.5, 100);
+}
 
-// int main() {
-//     char name[100];
-//     printf("Enter name\n");
-//     scanf("%100s", name);
-//     printf("Hello %s\n", name);
-// }
+void floors() {
+    int usf, euf;
+    printf("Enter US Floor:\n");
+    scanf("%d", &usf);
+                                 
+    euf = usf - 1;
+    printf("EU Floor is %d.\n", euf);
+}
 
-// int main() {
-//     char line[1000];
-//     printf("Enter the name\n");
-//     scanf("%[^\n]1000s", line);
-//     printf("Hello %s, How are you doing? \n", line);
-// }
+void fget() {
+    char name[100];
+    printf("Enter name\n");
+    scanf("%100s", name);
+    printf("Hello %s\n", name);
+}
 
-// int main() {
-//     char name[1000];
-//     printf("Enter your name:\n");
-//     fgets(name, 1000, stdin);  //this is gonna read the new line too when you hit enter after entering your name
-//     fgets(variable name, length, input src) it reads the whitespaces
-// to get rid of the newline char when enter is hit:
-//                                                     #include <string.h>
-//                                                      name[strlen(name)-1] = '\0';
-//     printf("Hello %s How are you doing?\n", name);
+void scan() {
+    char line[1000];
+    printf("Enter the name\n");
+    scanf("%[^\n]1000s", line);
+    printf("Hello %s, How are you doing? \n", line);
+}
 
-// }
-// #include <stdio.h>
-// int main() {
-//     char greet[100] = "Hello World!";
-//     printf("%s \n", greet);
-// }
+void main() {
+    char name[1000];
+    printf("Enter your name:\n");
+    fgets(name, 1000, stdin);  //this is gonna read the new line too when you hit enter after entering your name
+    fgets(variable name, length, input src) it reads the whitespaces
+//to get rid of the newline char when enter is hit:
+                                                    //#include <string.h>
+                                                     //name[strlen(name)-1] = '\0';
+    printf("Hello %s How are you doing?\n", name);
+
+}
+
+int main() {
+    char greet[100] = "Hello World!";
+    printf("%s \n", greet);
+}
 
 /* escape sequences
                     \n newline
@@ -55,6 +56,7 @@
                     "i love \"  this \" ."  quotes
                     \\ backslash
 */ 
+
 //format specifiers
 //                  %d digit
 //                  %s string
@@ -84,61 +86,63 @@
 
 // }
 //third side of a hypotenuse
-// int main(){
-//     double A, B, C;
+void hypo(){
+    double A, B, C;
 
-//     printf("Enter side A: ");
-//     scanf("%lf", &A);
+    printf("Enter side A: ");
+    scanf("%lf", &A);
 
-//     printf("Enter side B: ");
-//     scanf("%lf", &B);
+    printf("Enter side B: ");
+    scanf("%lf", &B);
 
-//     C = sqrt(pow(A,2) + pow(B,2));
+    C = sqrt(pow(A,2) + pow(B,2));
 
-//     printf("Side C: %lf \n", C);
-// }
+    printf("Side C: %lf \n", C);
+}
 
-// int main(){
-//     char grade;
-//     printf("Enter a grade: ");
-//     scanf("%c", &grade);
+void gradeCheck(){
+    char grade;
+    printf("Enter a grade: ");
+    scanf("%c", &grade);
 
-//     // if(grade =='A') {
-//     //     printf("Perfect!\n");
-//     // } else if (grade == 'B'){
-//     //     printf("You did good!\n");
-//     // } else if (grade == 'C') {
-//     //     printf("You did okay!\n");
-//     // } else if(grade == 'D'){
-//     //     printf("At least it's not an F!\n");
-//     // } else if (grade == 'F'){
-//     //     printf("YOU FAILED!\n");
-//     // } else {
-//     //     printf("That's not a valid grade! ");
-//     // }
+    // if(grade =='A') {
+    //     printf("Perfect!\n");
+    // } else if (grade == 'B'){
+    //     printf("You did good!\n");
+    // } else if (grade == 'C') {
+    //     printf("You did okay!\n");
+    // } else if(grade == 'D'){
+    //     printf("At least it's not an F!\n");
+    // } else if (grade == 'F'){
+    //     printf("YOU FAILED!\n");
+    // } else {
+    //     printf("That's not a valid grade! ");
+    // }
 
-//     switch(grade){
-//         case 'A':
-//             printf("Perfect\n");
-//             break;
-//         case 'B':
-//             printf("You did good!\n");
-//             break;
-//         case 'C':
-//             printf("You did okay!\n");
-//             break;
-//         case 'D':
-//             printf("At least it's not an F!\n");
-//             break;
-//         case 'F':
-//             printf("You Failed!");
-//             break;
-//         default:
-//             printf("That is not a valid grade alphabet!");
-//     }
-//     return 0;
-// }
-int main() {
+
+    switch(grade){
+        case 'A':
+            printf("Perfect\n");
+            break;
+        case 'B':
+            printf("You did good!\n");
+            break;
+        case 'C':
+            printf("You did okay!\n");
+            break;
+        case 'D':
+            printf("At least it's not an F!\n");
+            break;
+        case 'F':
+            printf("You Failed!");
+            break;
+        default:
+            printf("That is not a valid grade alphabet!");
+    }
+    return 0;
+}
+
+void temperatures() {
     char unit;
     float  temp;
 
