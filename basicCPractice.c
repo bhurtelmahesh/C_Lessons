@@ -19,7 +19,7 @@ void floors() {
     printf("EU Floor is %d.\n", euf);
 }
 
-void fget() {
+void scanString() {
     char name[100];
     printf("Enter name\n");
     scanf("%100s", name);
@@ -33,7 +33,7 @@ void scan() {
     printf("Hello %s, How are you doing? \n", line);
 }
 
-void main() {
+void fget() {
     char name[1000];
     printf("Enter your name:\n");
     fgets(name, 1000, stdin);  //this is gonna read the new line too when you hit enter after entering your name
