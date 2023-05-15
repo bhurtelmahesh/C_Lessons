@@ -9,6 +9,32 @@ struct user {
     float balance;
 };
 
+//関数
+//ログイン
+void login();
+
+//新規登録
+void registerUser();
+
+//残高照会
+void getBalance();
+
+//入金
+void deposit();
+
+//出金
+void withdraw();
+
+//送金
+void transfer();
+
+//パスワード変更
+void changePassword();
+
+//スタート
+void start();
+
+//変数
 struct user user;
 char filename[50], phone[50], password[50], phone2[50];
 FILE *fp, *fptr;
@@ -16,20 +42,12 @@ int opt, choice;
 int amount;
 char cont = 'y';
 
-void login();
-void registerUser();
-void getBalance();
-void deposit();
-void withdraw();
-void transfer();
-void changePassword();
-void operate();
-
 int main() {
-    operate();
+    start();
     return 0;
 }
-void operate(){
+
+void start(){
 	printf("\nご希望の取り引きを選択してください");
     printf("\n\n1.講座新規登録");
     printf("\n2.既存の口座へログイン");
@@ -48,6 +66,7 @@ void login() {
     printf("パスワード:\t");
     scanf("%s", password);
     fp = fopen(strcat(phone, ".dat"), "r");
+    //既にあるかをチェックし、登録
     if (fp == NULL){
 		printf("\n:::::::::::::::::::::::\n");
         printf("アカウントの登録が完了しました！");
@@ -114,7 +133,6 @@ void registerUser() {
     user.balance = 0;
     strcpy(filename, user.phone);
     fp = fopen(strcat(filename, ".dat"), "w");
-    // fwrite(&user, sizeof(user), 1, fp);
     if(fwrite(&user,sizeof(struct user),1,fp) != 0){
         printf("\n:::::::::::::::::::::::\n");
         printf("登録が完了しました！");
@@ -154,6 +172,7 @@ void deposit() {
 void withdraw(){
 	printf("出金額を入力してください:\t");
 	scanf("%d",&amount);
+    //小銭の出金禁止
 	if(amount % 1000 != 0) printf("\n千円未満の金額の取引ができません！");
 	else if(amount>user.balance) printf("\n残高不足しております！");
 	else {
@@ -171,7 +190,6 @@ void withdraw(){
 }
 
 void transfer(){
-	char phone_copy[15];
 	printf("送金先の電話番号を入力してください:\t");
 	scanf("%s",phone);
 	printf("送金額を入力してください:\t");
@@ -182,7 +200,7 @@ void transfer(){
         printf("\n:::::::::::::::::::::::\n");
 	}else{
 		strcpy(phone2, phone);
-		fptr = fopen(strcat(phone_copy,".dat"),"r");
+		fptr = fopen(strcat(phone2,".dat"),"r");
 		if(fptr==NULL){
 			printf("\n:::::::::::::::::::::::\n");
 			printf("入力いただいた電話番号が存在しません！");

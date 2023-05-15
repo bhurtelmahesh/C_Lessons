@@ -10,6 +10,15 @@ struct user {
 	float balance;
 };
 
+void login();
+void registerUser();
+void getBalance();
+void deposit();
+void withdraw();
+void transfer();
+void changePassword();
+
+
 int main(){
 	struct user user,usr;
 	char filename[50],phone[50],password[50],phone2[50];
@@ -24,7 +33,7 @@ int main(){
 	printf("\n\nPlease enter your choice:\t");
 	scanf("%d",&opt);
 	if(opt == 1){
-		register();
+		registerUser();
 	}
 	else if(opt == 2){
 		login();
@@ -86,7 +95,7 @@ system("clear");
 		}
 		printf("\n\n***Thank you for banking with ADV. bank***\n\n");
 }
-void register(){
+void registerUser(){
 	system("clear");
 	printf("\nEnter your account number:\t");
 	scanf("%s",user.ac);
