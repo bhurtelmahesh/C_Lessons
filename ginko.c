@@ -66,16 +66,15 @@ void login() {
     printf("パスワード:\t");
     scanf("%s", password);
     fp = fopen(strcat(phone, ".dat"), "r");
-    //既にあるかをチェックし、登録
     if (fp == NULL){
-		printf("\n:::::::::::::::::::::::\n");
-        printf("アカウントの登録が完了しました！");
-		printf("\n::::::::::::::::::::\n");
-	}else {
+        printf("\n:::::::::::::::::::::::\n");
+        printf("アカウントが見つかりませんでした！");
+        printf("\n::::::::::::::::::::\n");
+    } else {
         fread(&user, sizeof(struct user), 1, fp);
         fclose(fp);
         if (!strcmp(password, user.password)) {
-            while (cont == 'y') {
+            do {
                 system("clear");
                 printf("\n\tようこそ %s", user.phone);
                 printf("\n１　残高照会");
@@ -85,42 +84,41 @@ void login() {
                 printf("\n５　パスワード変更\n\n");
                 scanf("%d", &choice);
                 switch (choice) {
-                case 1:
-                    getBalance();
-                    break;
+                    case 1:
+                        getBalance();
+                        break;
 
-                case 2:
-                    deposit();
-                    break;
+                    case 2:
+                        deposit();
+                        break;
 
-                case 3:
-                    withdraw();
-                    break;
+                    case 3:
+                        withdraw();
+                        break;
 
-                case 4:
-                    transfer();
-                    break;
+                    case 4:
+                        transfer();
+                        break;
 
-                case 5:
-                    changePassword();
-                    break;
+                    case 5:
+                        changePassword();
+                        break;
 
-                default:
-                    break;
-                } 
+                    default:
+                        break;
+                }
                 printf("\n別のサービスをご利用ですか?[y/n]:\t");
-                scanf("%s", &cont);
-            }
+                scanf(" %c", &cont);
+            } while (cont == 'y');
         } else {
-			printf("\n:::::::::::::::::::::::\n");
+            printf("\n:::::::::::::::::::::::\n");
             printf("パスワードは正しくありません！");
-			printf("\n::::::::::::::::\n");
+            printf("\n::::::::::::::::\n");
         }
     }
-	printf("\n::::::::::::::::::::::::::::::::::::::::::::::::::\n");
+    printf("\n::::::::::::::::::::::::::::::::::::::::::::::::::\n");
     printf("***いつもDPT銀行をご利用いただきありがとうございます***");
-	printf("\n::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-
+    printf("\n::::::::::::::::::::::::::::::::::::::::::::::::::\n");
 }
 
 void registerUser() {
