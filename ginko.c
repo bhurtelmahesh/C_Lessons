@@ -1,3 +1,5 @@
+// 私はこのプログラムをMacBookで書いてあるため、Windowsで動かない可能性があります。
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -75,7 +77,7 @@ void login() {
         fclose(fp);
         if (!strcmp(password, user.password)) {
             do {
-                system("clear");
+                system("clear"); //system("cls") on windows
                 printf("\n\tようこそ %s", user.phone);
                 printf("\n１　残高照会");
                 printf("\n２　入金");
