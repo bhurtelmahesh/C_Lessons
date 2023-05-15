@@ -220,7 +220,7 @@ void transfer(){
     			fp = fopen(strcat(filename, ".dat"), "w");
     			fwrite(&user, sizeof(struct user), 1, fp);
     			fclose(fp);
-}
+            }
 		}
 	}
 }
