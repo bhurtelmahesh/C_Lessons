@@ -24,23 +24,17 @@ int main(){
 	printf("\n\nPlease enter your choice:\t");
 	scanf("%d",&opt);
 	if(opt == 1){
-		system("clear");
-		printf("\nEnter your account number:\t");
-		scanf("%s",user.ac);
-		printf("Enter your phone number:\t");
-		scanf("%s",user.phone);
-		printf("Enter your new password:\t");
-		scanf("%s",user.password);
-		user.balance=0;
-		stpcpy(filename,user.phone);
-		fp=fopen(strcat(filename,".dat"),"w");
-		fwrite(&user,sizeof(user),1,fp);
-		if(fwrite != 0){
-			printf("Succesfully registered");
-		}
+		register();
 	}
 	else if(opt == 2){
-		system("clear");
+		login();
+	}
+	
+	return 0;
+}
+
+void login(){
+system("clear");
 		printf("\nPhone No.:\t");
 		scanf("%s",phone);
 		printf("Password:\t");
@@ -62,82 +56,23 @@ int main(){
 				scanf("%d",&choice);
 				switch(choice){
 					case 1:
-						printf("Your current balance is Rs. %.2f",user.balance);
+						getBalance();
 						break;
 
 					case 2:
-						system("clear");
-						printf("Enter amount to be added:\t");
-						scanf("%d",&amount);
-						user.balance += amount;
-						fp = fopen(phone,"w");
-						fwrite(&user,sizeof(struct user),1,fp);
-						if(fwrite !=0) printf("\n\nYou have depostied Rs.%d",amount);
-						fclose(fp);
+						deposit();
 						break;
 
 					case 3:
-						system("clear");
-						printf("Enter withdrawl amount:\t");
-						scanf("%d",&amount);
-						if(amount % 500 != 0) printf("\nSorry amount should be multiple of 500");
-						else if(amount>user.balance) printf("\nSorry insufficeint balance");
-						else {
-							user.balance -= amount;
-						fp = fopen(phone,"w");
-						fwrite(&user,sizeof(struct user),1,fp);
-						if(fwrite !=0) printf("\n\nYou have withdrawn Rs.%d",amount);
-						fclose(fp);
-						}
+						withdraw();
 						break;
 					
 					case 4:
-						printf("Please enter the phone number to trasnfer balance:\t");
-						scanf("%s",phone);
-						printf("Enter the amount to transfer:\t");
-						scanf("%d",&amount);
-						if(amount > user.balance) printf("\nSorry insufficent balance");
-						else {
-							fptr = fopen(strcat(phone,".dat"),"r");
-							if(fptr==NULL) printf("Sorry number is not registered");
-							else {
-								fread(&usr,sizeof(struct user),1,fptr);
-								fclose(fptr);
-							
-								usr.balance += amount;
-								
-								fptr = fopen(phone,"w");
-								fwrite(&usr,sizeof(struct user),1,fptr);
-								if(fwrite != 0){
-								// 	printf("ACcount:%s",usr.ac);
-								// printf("\npassword%s",usr.password);
-								// printf("\nphone%s",usr.phone);
-								// printf("\nbalance%f",usr.balance);
-									printf("Your trasfer is completed. You have trasnfered Rs.%d to %s",amount,usr.phone);
-									fclose(fptr);
-									user.balance -= amount;
-									strcpy(filename,user.phone);
-									fp = fopen(strcat(filename,".dat"),"w");
-									fwrite(&user,sizeof(struct user),1,fp);
-									fclose(fp);
-								}
-							}
-						}
+						transfer();
 						break;
 					case 5:
-						printf("\n\nPlease enter your old password:\t");
-						scanf("%s",password);
-						if(!strcmp(password,user.password)){
-							printf("\n\nPlease enter your new password:\t");
-							scanf("%s",password);
-							strcpy(user.password,password);
-							strcpy(filename,user.phone);
-							fp = fopen(strcat(filename,".dat"),"w");
-							fwrite(&user,sizeof(struct user),1,fp);
-							fclose(fp);	
-							printf("\nPassword succesfullly changed");
-						}else printf("\nSorry your password is wrong");
-					
+						changePassword();
+						break;
 					default:
 					break;
 				}//switch ends here
@@ -150,7 +85,92 @@ int main(){
 			}	
 		}
 		printf("\n\n***Thank you for banking with ADV. bank***\n\n");
+}
+void register(){
+	system("clear");
+	printf("\nEnter your account number:\t");
+	scanf("%s",user.ac);
+	printf("Enter your phone number:\t");
+	scanf("%s",user.phone);
+	printf("Enter your new password:\t");
+	scanf("%s",user.password);
+	user.balance=0;
+	stpcpy(filename,user.phone);
+	fp=fopen(strcat(filename,".dat"),"w");
+	fwrite(&user,sizeof(user),1,fp);
+	if(fwrite != 0){
+		printf("Succesfully registered");
 	}
-	
-	return 0;
+}
+void getBalance(){
+printf("Your current balance is Rs. %.2f",user.balance);
+}
+void deposit(){
+	system("clear");
+	printf("Enter amount to be added:\t");
+	scanf("%d",&amount);
+	user.balance += amount;
+	fp = fopen(phone,"w");
+	fwrite(&user,sizeof(struct user),1,fp);
+	if(fwrite !=0) printf("\n\nYou have depostied Rs.%d",amount);
+	fclose(fp);
+}
+void withdraw(){
+	system("clear");
+	printf("Enter withdrawl amount:\t");
+	scanf("%d",&amount);
+	if(amount % 500 != 0) printf("\nSorry amount should be multiple of 500");
+	else if(amount>user.balance) printf("\nSorry insufficeint balance");
+	else {
+		user.balance -= amount;
+		fp = fopen(phone,"w");
+		fwrite(&user,sizeof(struct user),1,fp);
+		if(fwrite !=0) printf("\n\nYou have withdrawn Rs.%d",amount);
+		fclose(fp);
+	}
+}
+void transfer(){
+	printf("Please enter the phone number to trasnfer balance:\t");
+	scanf("%s",phone);
+	printf("Enter the amount to transfer:\t");
+	scanf("%d",&amount);
+	if(amount > user.balance) printf("\nSorry insufficent balance");
+	else {
+		fptr = fopen(strcat(phone,".dat"),"r");
+		if(fptr==NULL) printf("Sorry number is not registered");
+		else {
+			fread(&usr,sizeof(struct user),1,fptr);
+			fclose(fptr);			
+			usr.balance += amount;		
+			fptr = fopen(phone,"w");
+			fwrite(&usr,sizeof(struct user),1,fptr);
+			if(fwrite != 0){
+				// 	printf("ACcount:%s",usr.ac);
+				// printf("\npassword%s",usr.password);
+				// printf("\nphone%s",usr.phone);
+				// printf("\nbalance%f",usr.balance);
+				printf("Your trasfer is completed. You have trasnfered Rs.%d to %s",amount,usr.phone);
+				fclose(fptr);
+				user.balance -= amount;
+				strcpy(filename,user.phone);
+				fp = fopen(strcat(filename,".dat"),"w");
+				fwrite(&user,sizeof(struct user),1,fp);
+				fclose(fp);
+			}
+		}
+	}
+}
+void changePassword(){
+	printf("\n\nPlease enter your old password:\t");
+	scanf("%s",password);
+	if(!strcmp(password,user.password)){
+		printf("\n\nPlease enter your new password:\t");
+		scanf("%s",password);
+		strcpy(user.password,password);
+		strcpy(filename,user.phone);
+		fp = fopen(strcat(filename,".dat"),"w");
+		fwrite(&user,sizeof(struct user),1,fp);
+		fclose(fp);	
+		printf("\nPassword succesfullly changed");
+	}else printf("\nSorry your password is wrong");
 }
