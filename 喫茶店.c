@@ -2,12 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 
+//料理
 struct items{
     char item[20];
     float price;
     int qty;
 };
 
+//注文
 struct orders{
     char customer[50];
     char date[50];
@@ -22,11 +24,12 @@ void billFooter(float total);
 void print(); //レシート出力
 void printAll(); //全てのレシート出力
 void kensaku();
+void prompt();
 
 
 //Global 変数
 int opt; //選択肢
-int n; //注文の数
+int n; //料理の注文数
 int found = 0; //レシート検索時、見つからなかった場合
 FILE *fp;
 float total;
@@ -37,6 +40,44 @@ char name[50];
 
 
 int main(){
+    
+    while(cont == 'y'){
+        prompt();
+        switch(opt){
+            case 1:
+                system("clear");
+                print();
+            break;
+
+            case 2:
+                system("clear");
+                printAll();
+            break;
+
+            case 3:
+                system("clear");
+                kensaku();
+            break;
+
+            case 4:
+                printf("プログラム終了します！\n");
+                exit(0);
+            break;
+
+            default:
+                printf("選択肢は正しくありません！！！");
+            break;
+        }
+        //続いてシステム利用したい時の処理
+        printf("続いてシステムを利用しますか？　[y/n]:\t");
+        scanf("%s",&cont);
+    }
+        
+    printf("\n\n");
+    return 0;
+}
+
+void prompt(){
     printf("\n\t==========DPT喫茶店==========\n");
     printf("\nメニューを数字で入力してください：\t");
     printf("\n\n１．レシートを出力");
@@ -46,40 +87,6 @@ int main(){
     printf("\nあなたの選択：\t");
     scanf("%d", &opt);
     fgetc(stdin);
-
-    switch(opt){
-        case 1:
-        system("clear");
-        print();
-        break;
-
-        case 2:
-        system("clear");
-        printAll();
-        break;
-
-        case 3:
-        system("clear");
-        kensaku();
-        break;
-
-        case 4:
-        printf("プログラム終了します！");
-        exit(0);
-        break;
-
-        default:
-        printf("選択肢は正しくありません！！！");
-        break;
-    }
-    //続いてシステム利用したい時の処理
-    //
-    //
-    //
-    //
-    //明日
-    printf("\n\n");
-    return 0;
 }
 
 void print(){
