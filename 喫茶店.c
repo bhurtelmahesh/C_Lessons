@@ -42,6 +42,8 @@ char name[50];
 int main(){
     
     while(cont == 'y'){
+        int total = 0;
+        int found = 0;
         prompt();
         switch(opt){
             case 1:
@@ -69,10 +71,10 @@ int main(){
             break;
         }
         //続いてシステム利用したい時の処理
-        printf("続いてシステムを利用しますか？　[y/n]:\t");
+        printf("\n続いてシステムを利用しますか？　[y/n]:\t");
         scanf("%s",&cont);
     }
-        
+    printf("プログラム終了します！\n");
     printf("\n\n");
     return 0;
 }
@@ -168,7 +170,7 @@ void kensaku(){
         }
     }
     if(!found){
-        printf("%s 様のレシートは見つかりませんでした！",name);
+        printf("%s 様のレシートは見つかりませんでした！\n",name);
     }
     fclose(fp);
 
@@ -210,5 +212,5 @@ void billFooter(float total){
     printf("\n----------------------------------------\n");
     printf("合計\t\t\t\t%.2f",grandTotal);
     printf("\n----------------------------------------\n");
-    printf("\n\t＊＊***DPT喫茶店***＊＊\n");
+    printf("\n\t＊＊***DPT喫茶店***＊＊\n\n");
 }
