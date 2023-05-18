@@ -52,7 +52,7 @@ int main() {
 }
 
 void start(){
-	printf("\nご希望の取り引きを選択してください");
+    printf("\nご希望の取り引きを選択してください");
     printf("\n\n1.講座新規登録");
     printf("\n2.既存の口座へログイン");
     printf("\n\n取り引きを番号で入力ください:\t");
@@ -187,7 +187,6 @@ void withdraw(){
         printf("\n:::::::::::::::::::::::\n");
 		}
 		fclose(fp);
-
 	}
 }
 
@@ -224,7 +223,7 @@ void transfer(){
     			fp = fopen(strcat(filename, ".dat"), "w");
     			fwrite(&user, sizeof(struct user), 1, fp);
     			fclose(fp);
-            }
+            		}
 		}
 	}
 }
@@ -242,9 +241,9 @@ void changePassword(){
 		fclose(fp);	
 		printf("\n:::::::::::::::::::::::\n");
 		printf("パスワードの変更が完了しました！");
-        printf("\n:::::::::::::::::::::::\n");
+        	printf("\n:::::::::::::::::::::::\n");
 	}else{
-        printf("\n:::::::::::::::::::::::\n");
+        	printf("\n:::::::::::::::::::::::\n");
 		printf("\nパスワードは正しくありません！");
 	}
 }
