@@ -8,9 +8,21 @@
 COORD coord = {0,0}; /// ウィンドウの左上隅の座標
 
 
+/** 従業員を表す構造体 */
+struct emp{
+    char name[40]; /// 従業員の名前
+    int age; /// 従業員の年齢
+    float bs; /// 従業員の基本給与
+};
+
+struct emp e; /// 構造体変数の作成
+
+
 FILE *fp, *ft; /// ファイルポインタ
 system("color 3f");
 char another, choice;
+char empname[40]; /// 従業員の名前を格納する文字列
+long int recsize; /// 1つの従業員のレコードのサイズ
 
 //関数プロトタイプ
 void gotoxy(int x,int y);
@@ -26,19 +38,6 @@ void deleteAnother();
 
 /** メイン関数の開始 */
 int main(){
-
-    /** 従業員を表す構造体 */
-    struct emp{
-        char name[40]; /// 従業員の名前
-        int age; /// 従業員の年齢
-        float bs; /// 従業員の基本給与
-    };
-
-    struct emp e; /// 構造体変数の作成
-
-    char empname[40]; /// 従業員の名前を格納する文字列
-
-    long int recsize; /// 1つの従業員のレコードのサイズ
 
     /** ファイルをバイナリ読み書きモードで開く
     * もしEMP.DATというファイルが既に存在していれば、読み書きモードでそのファイルを開く
