@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
-#include <windows.h> //Windows上で利用するため
 #include <string.h>
-
-/** グローバル変数のリスト */
-COORD coord = {0,0}; /// ウィンドウの左上隅の座標
 
 
 /** 従業員を表す構造体 */
@@ -37,7 +32,6 @@ void deleteAnother();
 
 /** メイン関数の開始 */
 int main(){
-    system("color 3f");
 
     /** ファイルをバイナリ読み書きモードで開く
     * もしEMP.DATというファイルが既に存在していれば、読み書きモードでそのファイルを開く
@@ -56,12 +50,11 @@ int main(){
 
     /// 各レコードのサイズ、つまり構造体変数eのサイズ
     recsize = sizeof(e);
-
-    while(1){
         prompt();
+        another = 'y';
         switch(choice){
             case '1': /// もしユーザが1を押した場合
-                system("cls");
+                system("clear");
                 fseek(fp,0,SEEK_END); /// ファイル内を検索し、カーソルをファイルの末尾に移動する
                 /// ここで0はファイルの末尾から0の距離に移動することを示す
                 another = 'y';
@@ -82,36 +75,34 @@ int main(){
             fclose(fp); /// ファイルを閉じる
             exit(0); /// プログラムを終了する
         }
-    }//メインループの終了//
 
     return 0;
 
 }
 
-void gotoxy(int x,int y)
-{
-    coord.X = x;
-    coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
-}
+// void gotoxy(int x,int y)
+// {
+//     coord.X = x;
+//     coord.Y = y;
+//     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+// }
 
 void prompt(){
-    system("cls"); /// コンソールウィンドウをクリアする
-    printf("**Knowledge 360**");
-    gotoxy(30,10); /// カーソルを左上から座標30, 10に移動する
-    printf("1. レコードの追加"); /// レコードの追加オプション
-    gotoxy(30,12);
-    printf("2. レコードの表示"); /// 既存のレコードを表示するオプション
-    gotoxy(30,14);
-    printf("3. レコードの編集"); // レコードの編集オプション//
-    gotoxy(30,16);
-    printf("4. レコードの削除"); // レコードの削除オプション//
-    gotoxy(30,18);
-    printf("5. 終了"); // プログラムの終了//
-    gotoxy(30,20);
-    printf("選択してください: "); // 1, 2, 3, 4, 5の選択肢を入力//
-    fflush(stdin); /// 入力バッファをクリアする
-    choice = getche(); /// キーボードから入力を取得する
+    system("clear"); /// コンソールウィンドウをクリアする
+    printf("\n\n**Employee Record System**\n\n");
+    // gotoxy(30,10); /// カーソルを左上から座標30, 10に移動する
+    printf("1. レコードの追加\n"); /// レコードの追加オプション
+    // gotoxy(30,12);
+    printf("2. レコードの表示\n"); /// 既存のレコードを表示するオプション
+    // gotoxy(30,14);
+    printf("3. レコードの編集\n"); // レコードの編集オプション//
+    // gotoxy(30,16);
+    printf("4. レコードの削除\n"); // レコードの削除オプション//
+    // gotoxy(30,18);
+    printf("5. 終了\n"); // プログラムの終了//
+    // gotoxy(30,20);
+    printf("選択してください:\t"); // 1, 2, 3, 4, 5の選択肢を入力//
+    scanf("%c",&choice); /// キーボードから入力を取得する
 }
 
 void add(){
@@ -122,47 +113,49 @@ void add(){
     printf("\n基本給を入力してください: ");
     scanf("%f", &e.bs);
     fwrite(&e,recsize,1,fp); /// レコードをファイルに書き込む
-    printf("\n別のレコードを追加しますか？(y/n) ");
+    printf("\n別のレコードを追加しますか？(y/n): ");
     fflush(stdin);
-    another = getche();
+    scanf("%c",&another);
+
 }
 
 void show(){
-    system("cls");
+    system("clear");
     rewind(fp); /// ファイルカーソルをファイルの先頭に移動する
     while(fread(&e,recsize,1,fp)==1){  /// ファイルを読み込み、1つのレコードを1回の読み込みで取得する
         printf("\n%s %d %.2f",e.name,e.age,e.bs); /// 名前、年齢、基本給を表示する
     }
-    getch();
+    getchar();
+    printf("\n");
 }
 
 void edit(){
-    system("cls");
+    system("clear");
     another = 'y';
     while(another == 'y'){
         editAnother();
     }
 }
 void editAnother(){
-    printf("\n編集する従業員の名前を入力してください: ");
+    printf("編集する従業員の名前を入力してください: ");
     scanf("%s", empname);
     rewind(fp);
     while(fread(&e,recsize,1,fp)==1){  /// ファイルからすべてのレコードを取得する
         if(strcmp(e.name,empname) == 0){ /// 入力された名前がファイル内の名前と一致する場合
-            printf("\n新しい名前、年齢、基本給を入力してください: ");
+            printf("\n新しい名前、年齢、基本給を入力してください:\n");
             scanf("%s%d%f",e.name,&e.age,&e.bs);
             fseek(fp,-recsize,SEEK_CUR); /// カーソルを現在位置から1つ前に移動する
             fwrite(&e,recsize,1,fp); /// レコードを上書きする
             break;
         }
     }
-    printf("\n別のレコードを編集しますか？(y/n)");
+    printf("\n別のレコードを編集しますか？(y/n):\t");
     fflush(stdin);
-    another = getche();
+    scanf("%c",&another);
 }
 
 void delete(){
-    system("cls");
+    system("clear");
     another = 'y';
     while(another == 'y'){
         deleteAnother();
@@ -184,7 +177,8 @@ void deleteAnother(){
     remove("EMP.DAT"); /// 元のファイルを削除する
     rename("Temp.dat","EMP.DAT"); /// 一時ファイルを元のファイル名に変更する
     fp = fopen("EMP.DAT", "rb+");
-    printf("\n別のレコードを削除しますか？(y/n)");
+    printf("削除しました！\n\n");
+    printf("別のレコードを削除しますか？(y/n):\t");
     fflush(stdin);
-    another = getche();
+    scanf("%c",&another);
 }
