@@ -19,7 +19,6 @@ struct emp e; /// 構造体変数の作成
 
 
 FILE *fp, *ft; /// ファイルポインタ
-system("color 3f");
 char another, choice;
 char empname[40]; /// 従業員の名前を格納する文字列
 long int recsize; /// 1つの従業員のレコードのサイズ
@@ -38,6 +37,7 @@ void deleteAnother();
 
 /** メイン関数の開始 */
 int main(){
+    system("color 3f");
 
     /** ファイルをバイナリ読み書きモードで開く
     * もしEMP.DATというファイルが既に存在していれば、読み書きモードでそのファイルを開く
@@ -144,7 +144,7 @@ void edit(){
     }
 }
 void editAnother(){
-    printf("編集する従業員の名前を入力してください: ");
+    printf("\n編集する従業員の名前を入力してください: ");
     scanf("%s", empname);
     rewind(fp);
     while(fread(&e,recsize,1,fp)==1){  /// ファイルからすべてのレコードを取得する
@@ -184,7 +184,7 @@ void deleteAnother(){
     remove("EMP.DAT"); /// 元のファイルを削除する
     rename("Temp.dat","EMP.DAT"); /// 一時ファイルを元のファイル名に変更する
     fp = fopen("EMP.DAT", "rb+");
-    printf("別のレコードを削除しますか？(y/n)");
+    printf("\n別のレコードを削除しますか？(y/n)");
     fflush(stdin);
     another = getche();
 }
