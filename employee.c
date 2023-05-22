@@ -27,55 +27,15 @@ void edit();
 void editAnother();
 void delete();
 void deleteAnother();
+void fullFunctions();
 
 
 
 /** メイン関数の開始 */
 int main(){
 
-    /** ファイルをバイナリ読み書きモードで開く
-    * もしEMP.DATというファイルが既に存在していれば、読み書きモードでそのファイルを開く
-    * もしファイルが存在しなければ、新しいファイルを作成する
-    */
-    fp = fopen("EMP.DAT","rb+");
-    if(fp == NULL)
-    {
-        fp = fopen("EMP.DAT","wb+");
-        if(fp == NULL)
-        {
-            printf("ファイルを開けません");
-            exit(1);
-        }
-    }
-
-    /// 各レコードのサイズ、つまり構造体変数eのサイズ
-    recsize = sizeof(e);
-        prompt();
-        another = 'y';
-        switch(choice){
-            case '1': /// もしユーザが1を押した場合
-                system("clear");
-                fseek(fp,0,SEEK_END); /// ファイル内を検索し、カーソルをファイルの末尾に移動する
-                /// ここで0はファイルの末尾から0の距離に移動することを示す
-                another = 'y';
-                while(another == 'y'){  /// もしユーザが別のレコードを追加する場合
-                    add();
-                }
-            break;
-            case '2': // もしユーザが2を押した場合、レコードを表示する//
-                show();
-            break;
-            case '3':  /// もしユーザが3を押した場合、既存のレコードを編集する
-                edit();
-            break;
-            case '4'://この場合、従業員を削除できる//
-                delete();
-            break;
-            case '5':
-            fclose(fp); /// ファイルを閉じる
-            exit(0); /// プログラムを終了する
-        }
-
+   
+    fullFunctions();
     return 0;
 
 }
@@ -119,15 +79,20 @@ void add(){
 
 }
 
-void show(){
+void show() {
     system("clear");
-    rewind(fp); /// ファイルカーソルをファイルの先頭に移動する
-    while(fread(&e,recsize,1,fp)==1){  /// ファイルを読み込み、1つのレコードを1回の読み込みで取得する
-        printf("\n%s %d %.2f",e.name,e.age,e.bs); /// 名前、年齢、基本給を表示する
+    rewind(fp);
+    while (fread(&e, recsize, 1, fp) == 1) {
+        printf("\n%s %d %.2f", e.name, e.age, e.bs);
     }
     getchar();
-    printf("\n");
+
+    printf("\n\nPress any key to go back to the main menu...");
+    getchar();
+    fullFunctions();
 }
+
+
 
 void edit(){
     system("clear");
@@ -135,17 +100,27 @@ void edit(){
     while(another == 'y'){
         editAnother();
     }
+    fullFunctions();
+
 }
 void editAnother(){
+    // char empname[40];
     printf("編集する従業員の名前を入力してください: ");
     scanf("%s", empname);
     rewind(fp);
-    while(fread(&e,recsize,1,fp)==1){  /// ファイルからすべてのレコードを取得する
-        if(strcmp(e.name,empname) == 0){ /// 入力された名前がファイル内の名前と一致する場合
-            printf("\n新しい名前、年齢、基本給を入力してください:\n");
-            scanf("%s%d%f",e.name,&e.age,&e.bs);
-            fseek(fp,-recsize,SEEK_CUR); /// カーソルを現在位置から1つ前に移動する
-            fwrite(&e,recsize,1,fp); /// レコードを上書きする
+    while (fread(&e, recsize, 1, fp) == 1) {
+        if (strcmp(e.name, empname) == 0) {
+            printf("\n新しい名前を入力してください: ");
+            scanf("%s", e.name);
+
+            printf("新しい年齢を入力してください: ");
+            scanf("%d", &e.age);
+
+            printf("新しい給与を入力してください: ");
+            scanf("%f", &e.bs);
+
+            fseek(fp, -recsize, SEEK_CUR);
+            fwrite(&e, recsize, 1, fp);
             break;
         }
     }
@@ -154,31 +129,95 @@ void editAnother(){
     scanf("%c",&another);
 }
 
-void delete(){
+void delete() {
     system("clear");
-    another = 'y';
-    while(another == 'y'){
+    char choice = 'y';
+    while (choice == 'y'){
         deleteAnother();
+        printf("\n\n続行しますか？ [y/n]:\t");
+        scanf(" %c", &choice);
+    }
+    fullFunctions(); // Go back to the main menu
+}
+
+
+
+
+
+void deleteAnother() {
+    printf("\n削除する従業員の名前を入力してください: ");
+    scanf("%s", empname);
+    int found = 0; // レコードが見つかったかどうかを示すフラグ
+
+    rewind(fp);
+    while (fread(&e, recsize, 1, fp) == 1) {
+        if (strcmp(e.name, empname) == 0) {
+            found = 1; // レコードが見つかった
+            break;
+        }
+    }
+
+    if (found) {
+        ft = fopen("Temp.dat", "wb");
+        rewind(fp);
+        while (fread(&e, recsize, 1, fp) == 1) {
+            if (strcmp(e.name, empname) != 0) {
+                fwrite(&e, recsize, 1, ft);
+            }
+        }
+        fclose(fp);
+        fclose(ft);
+        remove("EMP.DAT");
+        rename("Temp.dat", "EMP.DAT");
+        fp = fopen("EMP.DAT", "rb+");
+        printf("\nレコードを削除しました！");
+    } else {
+        printf("\nレコードが見つかりませんでした！");
     }
 }
 
-void deleteAnother(){
-    printf("\n削除する従業員の名前を入力してください: ");
-    scanf("%s",empname);
-    ft = fopen("Temp.dat","wb"); /// 一時的なストレージのための中間ファイルを作成する
-    rewind(fp); /// レコードをファイルの先頭に移動する
-    while(fread(&e,recsize,1,fp) == 1){ /// ファイルからすべてのレコードを読み込む
-        if(strcmp(e.name,empname) != 0){ /// 入力されたレコードが一致しない場合
-            fwrite(&e,recsize,1,ft); /// 削除するレコード以外のすべてのレコードを一時ファイルに移動する
+
+void fullFunctions(){
+ /** ファイルをバイナリ読み書きモードで開く
+    * もしEMP.DATというファイルが既に存在していれば、読み書きモードでそのファイルを開く
+    * もしファイルが存在しなければ、新しいファイルを作成する
+    */
+    fp = fopen("EMP.DAT","rb+");
+    if(fp == NULL)
+    {
+        fp = fopen("EMP.DAT","wb+");
+        if(fp == NULL)
+        {
+            printf("ファイルを開けません");
+            exit(1);
         }
     }
-    fclose(fp);
-    fclose(ft);
-    remove("EMP.DAT"); /// 元のファイルを削除する
-    rename("Temp.dat","EMP.DAT"); /// 一時ファイルを元のファイル名に変更する
-    fp = fopen("EMP.DAT", "rb+");
-    printf("削除しました！\n\n");
-    printf("別のレコードを削除しますか？(y/n):\t");
-    fflush(stdin);
-    scanf("%c",&another);
+
+    /// 各レコードのサイズ、つまり構造体変数eのサイズ
+    recsize = sizeof(e);
+    prompt();
+    another = 'y';
+    switch(choice){
+        case '1': /// もしユーザが1を押した場合
+            system("clear");
+            fseek(fp,0,SEEK_END); /// ファイル内を検索し、カーソルをファイルの末尾に移動する
+            /// ここで0はファイルの末尾から0の距離に移動することを示す
+            another = 'y';
+            while(another == 'y'){  /// もしユーザが別のレコードを追加する場合
+                add();
+            }
+        break;
+        case '2': // もしユーザが2を押した場合、レコードを表示する//
+            show();
+        break;
+        case '3':  /// もしユーザが3を押した場合、既存のレコードを編集する
+            edit();
+        break;
+        case '4'://この場合、従業員を削除できる//
+            delete();
+        break;
+        case '5':
+        fclose(fp); /// ファイルを閉じる
+        exit(0); /// プログラムを終了する
+    }
 }
