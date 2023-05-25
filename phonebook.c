@@ -295,46 +295,46 @@ void remove_person()
     temp = fopen("temp","wb+");
     if (fp == NULL)
     {
-    printf("ファイルのオープンにエラーが発生しました。もう一度試してください！\n");
-    printf("続行するには何かキーを押してください....\n");
-    return;
+        printf("ファイルのオープンにエラーが発生しました。もう一度試してください！\n");
+        printf("続行するには何かキーを押してください....\n");
+        return;
     } else {
-    int flag = 0;
-    person p;
-    while (fread(&p, sizeof(p), 1, fp) == 1)
-    {
-        if(p.mble_no == phone)
+        int flag = 0;
+        person p;
+        while (fread(&p, sizeof(p), 1, fp) == 1)
         {
-            flag = 1;
-            continue;
-        }
-        else
-        {
-            fwrite(&p,sizeof(p),1,temp);
-        }
-    }
-    fclose(fp);
-    fclose(temp);
-    if(flag == 0) 
-    {
-        system("clear");
-        printf("電話帳からその人物を削除することはできませんでした\n");
-    }
-    else
-    {
-        fp = fopen("phonebook_db", "wb");
-        temp = fopen("temp","rb");
-        while (fread(&p, sizeof(p), 1, temp) == 1)
-        {
-            fwrite(&p,sizeof(p),1,fp);
+            if(p.mble_no == phone)
+            {
+                flag = 1;
+                continue;
+            }
+            else
+            {
+                fwrite(&p,sizeof(p),1,temp);
+            }
         }
         fclose(fp);
         fclose(temp);
-        system("clear");
-        printf("連絡先が正常に削除されました\n");
+        if(flag == 0) 
+        {
+            system("clear");
+            printf("電話帳からその人物を削除することはできませんでした\n");
+        }
+        else
+        {
+            fp = fopen("phonebook_db", "wb");
+            temp = fopen("temp","rb");
+            while (fread(&p, sizeof(p), 1, temp) == 1)
+            {
+                fwrite(&p,sizeof(p),1,fp);
+            }
+            fclose(fp);
+            fclose(temp);
+            system("clear");
+            printf("連絡先が正常に削除されました\n");
+        }
+        printf("\n\n続行するには何かキーを押してください....\n");
     }
-    printf("\n\n続行するには何かキーを押してください....\n");
-}
 
 }
 
