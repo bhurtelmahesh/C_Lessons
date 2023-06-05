@@ -1,21 +1,3 @@
-//v1.0
-//>> 2017 05 26
-//draw background               o
-//draw blocks                   o
-//rotate blocks.                o
-//go left, go right the block.  o
-//>> 2017 05 29
-//left, right limit             o
-//rotate near the wall          o
-//show the second block         o
-//>> 2017 05 30
-//drop the block.               o
-//collision with bottom wall    o
-//delete the correct line       o
-//score                         o
-//game over                     o
-//space button                  o
-//save the best score           o
 
 #include <stdio.h>
 #include <stdlib.h>
