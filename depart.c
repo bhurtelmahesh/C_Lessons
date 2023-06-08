@@ -173,7 +173,7 @@ void highlight(int no,int count)
             break;
         case 4:
             gotoxy(30,26);
-            printf(" - 戻る");
+            printf(" - 終了");
             break;
         }
     }
@@ -739,7 +739,7 @@ void del()
         gotoxy(25,29);
         printf("---商品が見つかりませんでした！---");
         gotoxy(30,31);
-        printf("もう一度試してください");
+        printf("もう一度試してください！");
     }
     fclose(file1);
     fclose(file);
@@ -775,12 +775,12 @@ void window(int a,int b,int c,int d)
 //textcolor(1);
     for (i=1; i<=10; i++)
         printf("-");
-    printf(" OLD TOWN ");
+    printf(" DPT ");
     for (i=1; i<=10; i++)
         printf("-");
     printf("\n\n");
     gotoxy(30,11);
-    printf("DEPARTMENTAL STORE");
+    printf("デパートストア");
 //textcolor(4);
     for (i=a; i<=b; i++)
     {
