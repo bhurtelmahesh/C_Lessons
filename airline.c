@@ -28,7 +28,7 @@ void main()
 	{
 		
 		printf("\n\n\t\t ********************************************************************");
-		printf("\n\t\t                   welcome to Sharath's airline system                   ");
+		printf("\n\t\t                   welcome to DPT airline system                   ");
 		printf("\n\t\t   *******************************************************************");
 		printf("\n\n\n\t\t Please enter your choice from below (1-4):");
 		printf("\n\n\t\t 1. Reservation");
