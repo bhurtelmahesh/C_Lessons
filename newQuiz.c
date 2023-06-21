@@ -24,7 +24,7 @@ mainhome:
     printf("\n\t\t\t   THE GAME ");
     printf("\n\t\t________________________________________");
     printf("\n\t\t________________________________________");
-    printf("\n\t\t   一億円の質問！！！！！！    "); // Japanese text: Become a millionaire!
+    printf("\n\t\t   一億円の質問！！！！！！    "); 
     printf("\n\t\t________________________________________");
     printf("\n\t\t________________________________________");
     printf("\n\t\t > Sキーを押してゲームを開始します");
@@ -184,7 +184,6 @@ game:
                 break;
             }
         }
-        // ... continue with the other questions
 
     }
 
