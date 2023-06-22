@@ -16,24 +16,24 @@ int main()
     char playername[20];
 
 mainhome:
-    system("clear"); 
-    printf("\t\t\tC PROGRAM QUIZ GAME\n");
+    system("clear");
+    printf("\t\t\tCプログラムクイズゲーム\n");
     printf("\n\t\t________________________________________");
-    printf("\n\t\t\t   WELCOME ");
-    printf("\n\t\t\t      to ");
-    printf("\n\t\t\t   THE GAME ");
-    printf("\n\t\t________________________________________");
-    printf("\n\t\t________________________________________");
-    printf("\n\t\t   一億円の質問！！！！！！    "); 
+    printf("\n\t\t\t   ようこそ");
+    printf("\n\t\t\t      へ");
+    printf("\n\t\t\t   ザ・ゲーム");
     printf("\n\t\t________________________________________");
     printf("\n\t\t________________________________________");
-    printf("\n\t\t > Sキーを押してゲームを開始します");
-    printf("\n\t\t > Vキーを押して最高得点を表示します");
-    printf("\n\t\t > Rキーを押して得点をリセットします");
-    printf("\n\t\t > Hキーを押してヘルプを表示します");
-    printf("\n\t\t > Qキーを押して終了します");
+    printf("\n\t\t   一億円の質問！！！！！！    ");
+    printf("\n\t\t________________________________________");
+    printf("\n\t\t________________________________________");
+    printf("\n\t\t > ゲームを開始するには、Sを押してください");
+    printf("\n\t\t > 最高得点を確認するには、Vを押してください");
+    printf("\n\t\t > スコアをリセットするには、Rを押してください");
+    printf("\n\t\t > ヘルプを表示するには、Hを押してください");
+    printf("\n\t\t > 終了するには、Qを押してください");
     printf("\n\t\t________________________________________\n\n");
-    choice = toupper((getchar()));
+    choice = toupper(getchar());
 
     if (choice == 'V')
     {
@@ -57,220 +57,250 @@ mainhome:
     else if (choice == 'S')
     {
         system("clear");
-        printf("\n\n\n\n\n\n\n\n\n\n\t\t\tあなたの名前を登録してください：");
+        printf("\n\n\n\n\n\n\n\n\n\n\t\t\tあなたの名前を入力してください：");
         getchar();
         fgets(playername, sizeof(playername), stdin);
         playername[strlen(playername) - 1] = '\0';
 
         system("clear");
-        printf("\n ------------------  ようこそ %s さん、Cプログラムクイズゲームへ --------------------------", playername);
-        printf("\n\n ここではプレイ前に知っておきたいいくつかのヒントがあります：");
+        printf("\n ------------------  %sさん、Cプログラムクイズゲームへようこそ --------------------------", playername);
+        printf("\n\n ゲームをプレイする前に知っておくべきいくつかのヒントがあります：");
         printf("\n -------------------------------------------------------------------------");
-        printf("\n >> このクイズゲームにはウォームアップラウンドとチャレンジラウンドの2つのラウンドがあります");
-        printf("\n >> ウォームアップラウンドでは、あなたの一般知識をテストするために合計3つの質問が出されます。少なくとも2つの正解を出すとゲームをプレイすることができます。");
-        printf("\n    それ以外の場合、チャレンジラウンドには進めません。");
-        printf("\n >> チャレンジラウンドでは、あなたのプログラミングスキルをテストするために合計10の質問が出されます。");
-        printf("\n    これらの質問に答えるためにプログラミングの知識と経験が必要です。");
-        printf("\n >> 各正解には1ポイントが与えられます。");
-        printf("\n >> チャレンジラウンドで最大スコアを獲得することを目指してください！\n");
-        printf("\n >> プレイするにはEnterキーを押してください！");
-        if (toupper(getchar()) == '\n')
-            goto home;
-    }
+        printf("\n >> このクイズゲームは、ウォームアップラウンドとチャレンジラウンドの2つのラウンドで構成されています。");
+        printf("\n >> ウォームアップラウンドでは、あなたの一般的な知識をテストするために3つの質問が出題されます。");
+        printf("\n    チャレンジラウンドに進むためには、少なくとも2つの質問に正解する必要があります。");
+        printf("\n >> チャレンジラウンドでは、プログラミングに関連する10の質問が出題されます。");
+        printf("\n    正解数に基づいてスコアが計算されます。すべての質問に正解すると、最高得点が表示されます。");
+        printf("\n >> プログラムを終了する場合は、いつでもQを押してください。");
+        printf("\n >> 準備ができたら、ゲームを開始するためにEnterキーを押してください...");
+        printf("\n -------------------------------------------------------------------------");
+        getchar();
 
-home:
-    system("clear");
-    count = 0;
-    for (i = 1; i <= 3; i++)
-    {
+        // Warm-up round
         system("clear");
-        r1 = i;
-        switch (r1)
+        printf("\n\n\n\n\n\n\n\n\n\n\t\t\tウォームアップラウンド\n");
+        printf("\n\t\t  3つの一般的な知識の質問に答えましょう");
+        printf("\n\t\t________________________________________");
+        printf("\n\t\t________________________________________");
+        printf("\n\t\t > 正解の数に応じてスコアが計算されます");
+        printf("\n\t\t > 最低2つの質問に正解する必要があります");
+        printf("\n\t\t________________________________________\n\n");
+        getchar();
+        count = 0;
+
+        for (i = 1; i <= 3; i++)
         {
-        case 1:
-            printf("\n\nWho is the Prime Minister of Japan?\n");
-            printf("\nA. Shinzo Abe\t\tB. Yoshihide Suga\n");
-            printf("\nC. Naoto Kan\t\tD. Junichiro Koizumi\n");
-            if (toupper(getchar()) == 'B')
+            system("clear");
+            r1 = i;
+            switch (r1)
             {
-                printf("\n\nCorrect!!!\n");
-                count++;
-                getchar();
-                break;
-            }
-            else
-            {
-                printf("\n\nWrong!!! The correct answer is B\n");
-                getchar();
-                break;
-            }
+            case 1:
+                printf("\n\n1.Cプログラミング言語の開発者は誰ですか？");
+                printf("\n\nA.Dennis Ritchie\t\tB.Bill Gates");
+                printf("\n\nC.Steve Jobs\t\tD.Mark Zuckerberg");
+                if (toupper(getchar()) == 'A')
+                {
+                    printf("\n\n正解！！！ ");
+                    count++;
+                    getchar();
+                    break;
+                }
+                else
+                {
+                    printf("\n\n不正解！！！ 正解はDennis Ritchieです");
+                    getchar();
+                    break;
+                }
 
-        case 2:
-            printf("\n\n\nWhich is the capital city of Japan?\n");
-            printf("\nA. Kyoto\t\tB. Hiroshima\n");
-            printf("\nC. Osaka\t\tD. Tokyo\n");
-            if (toupper(getchar()) == 'D')
-            {
-                printf("\n\nCorrect!!!\n");
-                count++;
-                getchar();
-                break;
-            }
-            else
-            {
-                printf("\n\nWrong!!! The correct answer is D\n");
-                getchar();
-                break;
-            }
+            case 2:
+                printf("\n\n\n2.C言語はどのようなタイプの言語ですか？");
+                printf("\n\nA.コンパイラ言語\t\tB.インタプリタ言語");
+                printf("\n\nC.アセンブリ言語\t\tD.マシン言語");
+                if (toupper(getchar()) == 'A')
+                {
+                    printf("\n\n正解！！！");
+                    count++;
+                    getchar();
+                    break;
+                }
+                else
+                {
+                    printf("\n\n不正解！！！ 正解はコンパイラ言語です");
+                    getchar();
+                    break;
+                }
 
-        case 3:
-            printf("\n\n\nWhat is the currency of Japan?\n");
-            printf("\nA. Yen\t\tB. Dollar\n");
-            printf("\nC. Euro\t\tD. Pound\n");
-            if (toupper(getchar()) == 'A')
-            {
-                printf("\n\nCorrect!!!\n");
-                count++;
-                getchar();
-                break;
+            case 3:
+                printf("\n\n\n3.C言語のデータ型intのサイズは？");
+                printf("\n\nA.2バイト\t\tB.4バイト");
+                printf("\n\nC.8バイト\t\tD.データ型に依存");
+                if (toupper(getchar()) == 'B')
+                {
+                    printf("\n\n正解！！！");
+                    count++;
+                    getchar();
+                    break;
+                }
+                else
+                {
+                    printf("\n\n不正解！！！ 正解は4バイトです");
+                    getchar();
+                    break;
+                }
             }
-            else
+        }
+
+        if (count >= 2)
+        {
+            goto test;
+        }
+        else
+        {
+            system("clear");
+            printf("\n\n\n\n\n\n\n\n\n\n\t\t\tゲームオーバー");
+            printf("\n\t\t\tYou didn't make it to the Challenge round.");
+            printf("\n\t\t\tThank you for playing the game!");
+            printf("\n\t\t\tYour final score is $0.00\n");
+            printf("\t\t\tBetter luck next time %sさん", playername);
+            edit_score(score, playername);
+            goto mainhome;
+        }
+
+    test:
+        system("clear");
+        printf("\n\n\n\n\n\n\n\n\n\n\t\t\tチャレンジラウンド！！！");
+        printf("\n\t\t\tLet's test your programming knowledge");
+        printf("\n\t\t\t________________________________________");
+        printf("\n\t\t\t________________________________________");
+        printf("\n\t\t\t > 10の質問に答える");
+        printf("\n\t\t\t > すべての質問に正解すると最高得点が表示されます");
+        printf("\n\t\t\t________________________________________");
+
+        getchar();
+        countr = 0;
+        for (i = 1; i <= 10; i++)
+        {
+            system("clear");
+            r = i;
+
+            switch (r)
             {
-                printf("\n\nWrong!!! The correct answer is A\n");
-                getchar();
+            case 1:
+                printf("\n\n1. C言語でのコメントの始まりの記号は？");
+                printf("\n\nA. //\t\tB. /*");
+                printf("\n\nC. #\t\tD. --");
+                if (toupper(getchar()) == 'B')
+                {
+                    printf("\n\n正解！！！");
+                    countr++;
+                    getchar();
+                    break;
+                }
+                else
+                {
+                    printf("\n\n不正解！！！ 正解は/*です");
+                    getchar();
+                    break;
+                }
+
+          case 2:
+                printf("\n\n\n2. 次のコードの出力は何ですか？\n\n\t\t#include <stdio.h>\n\t\tint main()\n\t\t{\n\t\t\tint x = 10;\n\t\t\tint y = x++ + ++x;\n\t\t\tprintf(\"％d\", y);\n\t\t\treturn 0;\n\t\t}");
+                printf("\n\nA. 21\t\tB. 20");
+                printf("\n\nC. 22\t\tD. 23");
+    
+                char answer;
+                scanf(" %c", &answer);  // Read a single character input
+    
+                if (toupper(answer) == 'C')
+                {
+                    printf("\n\n正解！！！");
+                    countr++;
+                }
+                else
+                {
+                    printf("\n\n不正解！！！ 正解は22です");
+                }
+    
+                getchar();  // Consume the newline character
+    
+                break;
+
+
+            // 他の質問...
+
+            default:
                 break;
             }
         }
-    }
-    score = (float)count;
-    if (score >= 2)
-    {
-        printf("\n\n\nCongratulations!!! You are eligible to play the Game");
-        printf("\n\n\nPress any key to Start the Game!!");
-        getchar();
-        goto game;
-    }
-    else
-    {
-        printf("\n\n\nSorry! You are not eligible to play the Game. Please try again...");
-        getchar();
+
+        system("clear");
+        printf("\n\n\n\n\n\n\n\n\n\n\t\t\tゲーム終了");
+        printf("\n\t\t\tCongrats %sさん, you made it to the end!", playername);
+        printf("\n\t\t\tあなたのスコアは$%.2fです\n", (float)countr * 10000);
+        edit_score((float)countr * 10000, playername);
         goto mainhome;
     }
-game:
-    system("clear");
-    count = 0;
-    for (i = 1; i <= 10; i++)
+    else
     {
         system("clear");
-        r = i;
-        switch (r)
-        {
-        case 1:
-            printf("\n\nWhat is the output of the following code?\n\n");
-            printf("#include <stdio.h>\n\nint main()\n{\n\tint x = 5;\n\tint y = x++;\n\tprintf(\"%%d %%d\", x, y);\n\treturn 0;\n}");
-            printf("\n\nA. 5 5\t\tB. 6 5\n");
-            printf("\nC. 6 6\t\tD. 5 6\n");
-            if (toupper(getchar()) == 'B')
-            {
-                printf("\n\nCorrect!!!\n");
-                count++;
-                getchar();
-                break;
-            }
-            else
-            {
-                printf("\n\nWrong!!! The correct answer is B\n");
-                getchar();
-                break;
-            }
-        }
-
-    }
-
-    score = (float)count;
-    system("clear");
-    printf("\n\n\n\t\t**************** CONGRATULATIONS *****************");
-    printf("\n\n\t\t       You scored %.2f points!", score);
-    if (score > 5.0)
-    {
-        printf("\n\n\t\t You have demonstrated excellent programming knowledge.");
-        printf("\n\t\t     Keep up the good work!");
-    }
-    else if (score > 3.0)
-    {
-        printf("\n\n\t\t    You have a decent programming knowledge.");
-        printf("\n\t\t  Practice more to improve your skills.");
-    }
-    else
-    {
-        printf("\n\n\t\t     You need to work on your programming knowledge.");
-        printf("\n\t\t  Study more and keep practicing.");
-    }
-    printf("\n\n\n\t\t***************************************************");
-    printf("\n\n\t\t\t Thanks for playing the Game!");
-    printf("\n\n\t\t***************************************************");
-    printf("\n\n\n\nEnter 'Y' to save your score or any other key to exit: ");
-    if (toupper(getchar()) == 'Y')
-    {
-        printf("\n\n\n\t\t\tEnter your name: ");
-        getchar();
-        fgets(playername, sizeof(playername), stdin);
-        playername[strlen(playername) - 1] = '\0';
+        printf("\n\n\n\n\n\n\n\n\n\n\t\t\tゲームオーバー");
+        printf("\n\t\t\tThank you for playing the game!");
+        printf("\n\t\t\tYour final score is $0.00\n");
         edit_score(score, playername);
-        getchar();
-    }
-    else
         exit(1);
+    }
+
     return 0;
 }
 
 void show_record()
 {
-    char name[20];
-    float scr;
-    FILE *f;
-    f = fopen("score.txt", "r");
-    fscanf(f, "%s%f", name, &scr);
-    printf("\n\n\t\t*************************************************************");
-    printf("\n\n\t\t %s has secured the Highest Score %.2f", name, scr);
-    printf("\n\n\t\t*************************************************************");
-    fclose(f);
+    system("clear");
+    char playername[20];
+    float score;
+    FILE *fp;
+    fp = fopen("score.txt", "r");
+    fscanf(fp, "%s%f", playername, &score);
+    printf("\n\n\n\n\n\t\t\t最高得点は%sさんのものです！", playername);
+    printf("\n\n\t\t\t%sさんの最高得点は$%.2fです\n", playername, score);
+    fclose(fp);
     getchar();
 }
 
 void reset_score()
 {
-    FILE *f;
-    f = fopen("score.txt", "w");
-    fprintf(f, "%s %.2f", "no one", 0.0);
-    fclose(f);
-    printf("\n\n\t\t*************************************************************");
-    printf("\n\n\t\t\t     Score reset successfully!!");
-    printf("\n\n\t\t*************************************************************");
+    system("clear");
+    float score;
+    char playername[20];
+    FILE *fp;
+    fp = fopen("score.txt", "w");
+    strcpy(playername, "No one");
+    score = 0;
+    fprintf(fp, "%s\n%.2f", playername, score);
+    fclose(fp);
+    printf("\n\n\n\n\n\t\t\tスコアがリセットされました！");
     getchar();
 }
 
 void help()
 {
     system("clear");
-    printf("\n\n\n\t\t\tHELP");
-    printf("\n\n----------------------------------------------------------------------------");
-    printf("\n >> このゲームは一億円の質問（Become a millionaire）のクイズゲームです。");
-    printf("\n >> ゲームを開始するためにSキーを押してください。");
-    printf("\n >> ウォームアップラウンドでは、合計3つの質問が出されます。少なくとも2つの正解が必要です。");
-    printf("\n    そうでない場合、ゲームは終了されます。");
-    printf("\n >> チャレンジラウンドでは、合計10のプログラミング質問が出されます。");
-    printf("\n    これらの質問に答えるためにプログラミングの知識が必要です。");
-    printf("\n >> 各正解には1ポイントが与えられます。");
-    printf("\n >> チャレンジラウンドで最高スコアを獲得しましょう！");
-    printf("\n >> Enterキーを押すと質問が表示されます。答えを選んだらEnterキーを押してください。");
-    printf("\n >> ゲームが終了したら、スコアが表示されます。スコアを保存する場合はYキーを押してください。");
-    printf("\n >> スコアをリセットするにはRキーを押してください。");
-    printf("\n >> 最高スコアを表示するにはVキーを押してください。");
-    printf("\n >> ヘルプを表示するにはHキーを押してください。");
-    printf("\n >> ゲームを終了するにはQキーを押してください。");
-    printf("\n----------------------------------------------------------------------------");
-    printf("\n\n\n Press any key to continue...");
+    printf("\n\n\n\n\n\n\n\n\n\n\t\t\tルールとヘルプ");
+    printf("\n\t\t\t________________________________________");
+    printf("\n\t\t\t________________________________________");
+    printf("\n\t\t\t > ゲームを開始するには、Sを押してください");
+    printf("\n\t\t\t > 最高得点を確認するには、Vを押してください");
+    printf("\n\t\t\t > スコアをリセットするには、Rを押してください");
+    printf("\n\t\t\t > ヘルプを表示するには、Hを押してください");
+    printf("\n\t\t\t > 終了するには、Qを押してください");
+    printf("\n\t\t\t________________________________________");
+    printf("\n\t\t\t________________________________________");
+    printf("\n\t\t\t > ウォームアップラウンドでは、3つの質問が出題されます。");
+    printf("\n\t\t\t > チャレンジラウンドでは、10の質問が出題されます。");
+    printf("\n\t\t\t > 最低2つのウォームアップ質問に正解する必要があります。");
+    printf("\n\t\t\t > ゲームの最後には、最高得点が表示されます。");
+    printf("\n\t\t\t________________________________________");
+    printf("\n\t\t\t________________________________________");
     getchar();
 }
 
@@ -278,16 +308,16 @@ void edit_score(float score, char plnm[20])
 {
     system("clear");
     float sc;
-    char nm[20];
-    FILE *f;
-    f = fopen("score.txt", "r");
-    fscanf(f, "%s%f", nm, &sc);
+    char playername[20];
+    FILE *fp;
+    fp = fopen("score.txt", "r");
+    fscanf(fp, "%s%f", playername, &sc);
     if (score >= sc)
     {
         sc = score;
-        fclose(f);
-        f = fopen("score.txt", "w");
-        fprintf(f, "%s\n%.2f", plnm, sc);
-        fclose(f);
+        fclose(fp);
+        fp = fopen("score.txt", "w");
+        fprintf(fp, "%s\n%.2f", plnm, sc);
+        fclose(fp);
     }
 }
