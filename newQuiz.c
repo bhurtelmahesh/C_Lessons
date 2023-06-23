@@ -19,9 +19,9 @@ mainhome:
     system("clear");
     printf("\t\t\tCプログラムクイズゲーム\n");
     printf("\n\t\t________________________________________");
-    printf("\n\t\t\t   ようこそ");
-    printf("\n\t\t\t      へ");
     printf("\n\t\t\t   ザ・ゲーム");
+    printf("\n\t\t\t      へ");
+    printf("\n\t\t\t   ようこそ");
     printf("\n\t\t________________________________________");
     printf("\n\t\t________________________________________");
     printf("\n\t\t   一億円の質問！！！！！！    ");
@@ -209,7 +209,8 @@ mainhome:
                 printf("\n\nC. 22\t\tD. 23");
     
                 char answer;
-                scanf(" %c", &answer);  // Read a single character input
+                scanf(" %c", answer);  // Read a single character input
+                getchar();
     
                 if (toupper(answer) == 'C')
                 {
